@@ -1,11 +1,17 @@
 import numpy as np
-from qnp.Physics.Constants import Plancks_Constant, Speed_of_Light
+from qnp.Physics.Constants import Plancks_Constant, Speed_of_Light, pi
 
 
 def frequency(wavelength_nm: np.array[float] | float) -> np.array[float] | float:
     """get wavelength in [nm] and return frequency in [Hz]"""
 
     return Speed_of_Light.MperS / (wavelength_nm * 1e-9)
+
+
+def omega(wavelength_nm: np.array[float] | float) -> np.array[float] | float:
+    """get wavelength in [nm] and return omega in [rad/s]"""
+
+    return 2 * pi * frequency(wavelength_nm)
 
 
 class Energy:
