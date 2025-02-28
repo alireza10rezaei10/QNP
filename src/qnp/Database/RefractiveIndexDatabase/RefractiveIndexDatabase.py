@@ -14,7 +14,7 @@ class RefractiveIndexDatabase:
         if material and article:
             query = self.catalog.material.str.contains(
                 material
-            ) | self.catalog.article.str.contains(article)
+            ) & self.catalog.article.str.contains(article)
 
         elif material:
             query = self.catalog.material.str.contains(material)
@@ -41,6 +41,7 @@ class RefractiveIndexDatabase:
             print("warning... losing some data")
         raw_data = db.get("DATA")[0].get("data")
         df = pd.read_csv(StringIO(raw_data), sep=" ", names=["wavelength", "n", "k"])
+        df["epsilon"] = (df.n + df.k * 1j) ** 2
 
         if logs:
             print(material.material)
